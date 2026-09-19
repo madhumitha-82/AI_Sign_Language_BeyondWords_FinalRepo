@@ -1,0 +1,22 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/beyondwords_analytics?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: madhumitha_15
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/beyondwords_analytics_logs
+
+app:
+  jwt:
+    secret: beyondwords-super-secret-key-change-me
+    expiration-ms: 86400000
+  user-service:
+    url: http://localhost:8081
