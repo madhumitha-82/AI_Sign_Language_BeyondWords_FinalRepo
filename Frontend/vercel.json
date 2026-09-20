@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/user/:path*",
+      "destination": "https://beyondwords-user-service.onrender.com/:path*"
+    },
+    {
+      "source": "/learning/:path*",
+      "destination": "https://beyondwords-learning-service.onrender.com/:path*"
+    },
+    {
+      "source": "/analytics/:path*",
+      "destination": "https://beyondwords-analytics-service.onrender.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
