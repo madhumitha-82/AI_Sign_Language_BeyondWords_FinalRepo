@@ -97,9 +97,9 @@ export function Quiz() {
             
             // The backend might send paths like "/WLASL100/WLASL100/videos/66045.mp4"
             // We need to extract just the filename to look it up in our bundled videoModules
-            if (assignedImage && assignedImage.includes('.mp4')) {
-              const filename = assignedImage.split('/').pop();
-              const matchingModuleKey = videoKeys.find(key => key.endsWith(filename));
+              if (assignedImage && typeof assignedImage === 'string' && assignedImage.includes('.mp4')) {
+                const filename = assignedImage.split('/').pop();
+                const matchingModuleKey = videoKeys.find(key => typeof key === 'string' && key.endsWith(filename));
               if (matchingModuleKey) {
                 assignedImage = videoModules[matchingModuleKey];
               }
@@ -475,26 +475,25 @@ export function Quiz() {
           {/* Visual stimulus preview box */}
           <div className="h-48 bg-gradient-cyan rounded-3xl flex items-center justify-center text-7xl shadow-inner relative overflow-hidden">
             {currentQuestion.image ? (
-               (() => {
-                 const src = currentQuestion.image;
-                 const isVideo = src.endsWith('.mp4') || src.endsWith('.webm');
-                 // For now, if it doesn't start with http or /, assume we serve it from a local root (e.g., /media or /)
-                 const mediaUrl = src.startsWith('http') || src.startsWith('/') ? src : `/${src}`;
-                     if (isVideo) {
-                       return (
-                         <div className="w-full h-full relative">
-                           <video 
-                             key={mediaUrl}
-                             src={mediaUrl} 
-                             className="w-full h-full object-contain bg-black rounded-3xl" 
-                             autoPlay 
-                             loop 
-                             muted 
-                             playsInline 
-                           />
-                         </div>
-                       );
-                     } else if (src.endsWith('.htm') || src.endsWith('.html')) {
+                 (() => {
+                   const src = currentQuestion.image;
+                   const isVideo = typeof src === 'string' && (src.endsWith('.mp4') || src.endsWith('.webm'));
+                   // For now, if it doesn't start with http or /, assume we serve it from a local root (e.g., /media or /)
+                   const mediaUrl = typeof src === 'string' && (src.startsWith('http') || src.startsWith('/')) ? src : `/${src}`;
+                       if (isVideo) {
+                         return (
+                           <div className="w-full h-full relative">
+                             <video 
+                               src={mediaUrl} 
+                               className="w-full h-full object-cover"
+                               autoPlay 
+                               loop 
+                               muted 
+                               playsInline 
+                             />
+                           </div>
+                         );
+                       } else if (typeof src === 'string' && (src.endsWith('.htm') || src.endsWith('.html'))) {
                    return <iframe src={mediaUrl} className="w-full h-full border-0" title="Sign Language Reference" />;
                  } else {
                    return <img src={mediaUrl} alt="Visual Stimulus" className="w-full h-full object-contain" />;

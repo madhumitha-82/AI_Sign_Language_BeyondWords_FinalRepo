@@ -232,7 +232,7 @@ export function CourseQuiz({ courseId, courseTitle, onComplete }) {
       </div>
 
       <GlassCard className="p-6 flex flex-col items-center text-center gap-4 border-glassBorder bg-bgSecondary shadow-xl relative animate-fadeIn">
-        {currentQuestion.image && currentQuestion.image !== "o<" && (currentQuestion.image.startsWith("http") || currentQuestion.image.startsWith("/")) ? (
+        {currentQuestion.image && typeof currentQuestion.image === 'string' && currentQuestion.image !== "o<" && (currentQuestion.image.startsWith("http") || currentQuestion.image.startsWith("/")) ? (
           <div className="w-full h-48 md:h-56 relative rounded-2xl overflow-hidden shadow-glow-cyan mb-2 border border-white/10 group">
              <img src={currentQuestion.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Question" />
              <div className="absolute inset-0 bg-gradient-to-t from-bgSecondary via-transparent to-transparent opacity-80" />
