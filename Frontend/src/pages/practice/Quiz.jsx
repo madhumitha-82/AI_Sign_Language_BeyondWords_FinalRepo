@@ -476,7 +476,7 @@ export function Quiz() {
           <div className="h-48 bg-gradient-cyan rounded-3xl flex items-center justify-center text-7xl shadow-inner relative overflow-hidden">
             {currentQuestion.image ? (
                  (() => {
-                   const src = currentQuestion.image;
+                   let src = currentQuestion.image; if (src && typeof src === 'object' && src.default) src = src.default;
                    const isVideo = typeof src === 'string' && (src.endsWith('.mp4') || src.endsWith('.webm'));
                    // For now, if it doesn't start with http or /, assume we serve it from a local root (e.g., /media or /)
                    const mediaUrl = typeof src === 'string' && (src.startsWith('http') || src.startsWith('/')) ? src : `/${src}`;
